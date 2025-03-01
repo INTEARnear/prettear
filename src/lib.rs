@@ -27,7 +27,6 @@ impl Contract {
 
     #[private]
     pub fn mint(&mut self, amount: u128, to: AccountId) {
-        assert_one_yocto();
         Nep141Controller::mint(
             self,
             &Nep141Mint {
