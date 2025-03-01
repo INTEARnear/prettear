@@ -1,4 +1,4 @@
-use near_sdk::near;
+use near_sdk::{env, near};
 use near_sdk_contract_tools::{ft::*, hook::Hook};
 
 #[derive(FungibleToken)]
@@ -27,7 +27,10 @@ impl Contract {
 pub struct NonTransferrableHook;
 
 impl<C> Hook<C, Nep141Transfer<'_>> for NonTransferrableHook {
-    fn hook<R>(_contract: &mut C, _args: &Nep141Transfer<'_>, _f: impl FnOnce(&mut C) -> R) -> R {
-        panic!("Token is non-transferable");
+    fn hook<R>(_contract: &mut C, args: &Nep141Transfer<'_>, _f: impl FnOnce(&mut C) -> R) -> R {
+        if *args.sender_id != "intear.pool.near" {
+            env::panic_str("Token is non-transferable");
+        }
+        _f(_contract)
     }
 }
