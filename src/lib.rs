@@ -1,9 +1,9 @@
 use std::borrow::Cow;
 
-use near_sdk::{assert_one_yocto, env, near, AccountId};
+use near_sdk::{assert_one_yocto, env, near, AccountId, PanicOnDefault};
 use near_sdk_contract_tools::{ft::*, hook::Hook};
 
-#[derive(FungibleToken)]
+#[derive(FungibleToken, PanicOnDefault)]
 #[fungible_token(transfer_hook = "NonTransferrableHook")]
 #[near(contract_state)]
 pub struct Contract {}
