@@ -28,8 +28,11 @@ pub struct NonTransferrableHook;
 
 impl<C> Hook<C, Nep141Transfer<'_>> for NonTransferrableHook {
     fn hook<R>(_contract: &mut C, args: &Nep141Transfer<'_>, _f: impl FnOnce(&mut C) -> R) -> R {
-        if *args.sender_id != "intear.pool.near" {
-            env::panic_str("Token is non-transferable");
+        if *args.sender_id != "intear.pool.near"
+            && *args.sender_id != "slimedragon.near"
+            && *args.sender_id != "intear.near"
+        {
+            env::panic_str("Token is non-transferable")
         }
         _f(_contract)
     }
