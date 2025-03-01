@@ -1,6 +1,6 @@
 use std::borrow::Cow;
 
-use near_sdk::{assert_one_yocto, env, near, AccountId, PanicOnDefault};
+use near_sdk::{assert_one_yocto, env, json_types::U128, near, AccountId, PanicOnDefault};
 use near_sdk_contract_tools::{ft::*, hook::Hook};
 
 #[derive(FungibleToken, PanicOnDefault)]
@@ -26,11 +26,11 @@ impl Contract {
     }
 
     #[private]
-    pub fn mint(&mut self, amount: u128, to: AccountId) {
+    pub fn mint(&mut self, amount: U128, to: AccountId) {
         Nep141Controller::mint(
             self,
             &Nep141Mint {
-                amount,
+                amount: amount.0,
                 receiver_id: Cow::Borrowed(&to),
                 memo: None,
             },
