@@ -11,8 +11,8 @@ pub struct Contract {}
 #[near]
 impl Contract {
     #[private]
-    pub fn init() {
-        Nep148Controller::set_metadata(&mut contract, &ContractMetadata {
+    pub fn init(&mut self) {
+        Nep148Controller::set_metadata(self, &ContractMetadata {
             spec: "ft-1.0.0".to_string(),
             name: "Prettear".to_string(),
             symbol: "pTEAR".to_string(),
